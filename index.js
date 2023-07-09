@@ -16,7 +16,7 @@ server.use(express.json());
      - DELETE       => Deletar informações no back-end
 
      - Middleware   => INTERCEPTADOR => Tem o poder de para ou alterar dados na requisão 
-     */
+*/
 
 const users = [];
 
@@ -36,11 +36,17 @@ const checkUserId = (request, response, next) => {
 
 }
 
+/*
+
+  TRATAMENTO DE ERROS ( try catch )
+
+*/
 server.get("/users", (request, response) => {
   return response.json(users);
 });
 
 server.post("/users", (request, response) => {
+try {  
   const { name, age } = request.body;
 
   const user = { id: uuid.v4(), name, age };
@@ -48,6 +54,11 @@ server.post("/users", (request, response) => {
   users.push(user);
 
   return response.status(201).json(user);
+} catch(error){
+  return response.status(404).json(error.message)
+} finally {
+  console.log("finish")
+} 
 });
 
 server.put("/users/:id", checkUserId, (request, response) => {
