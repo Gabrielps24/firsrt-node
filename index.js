@@ -1,9 +1,11 @@
 const express = require("express");
 const uuid = require("uuid");
+const cors = require("cors")
 
-const port = 3000;
+const port = 3001;
 const server = express();
 server.use(express.json());
+server.use(cors())
 
 /*
      - Query params => site.com/users?name=dante&age=56  //FILTROS
